@@ -4,75 +4,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoHarvest - ODS 2</title>
-
+    <title>EcoHarvest - Simulador Estratégico Sócio-Ambiental</title>
+    <meta name="description" content="Simulador estratégico sobre fome, recursos naturais e decisões sustentáveis alinhado ao ODS 2.">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header>
-        <h1>🌱 EcoHarvest</h1>
-        <p>ODS 2 - Fome Zero e Agricultura Sustentável</p>
+    <div class="background-orbs" aria-hidden="true"></div>
+
+    <header class="hero">
+        <div>
+            <p class="eyebrow">ODS 2 | Fome Zero e Agricultura Sustentável</p>
+            <h1>EcoHarvest</h1>
+            <p class="subtitle">Simulador Estratégico Sócio-Ambiental com decisões mensais, projeção futura e feedback visual em tempo real.</p>
+        </div>
+
+        <div class="hero-metrics">
+            <div class="hero-chip">
+                <span>Turno</span>
+                <strong id="heroTurn">01</strong>
+            </div>
+            <div class="hero-chip">
+                <span>Clima</span>
+                <strong id="heroClimate">Estável</strong>
+            </div>
+            <div class="hero-chip">
+                <span>Eco-score</span>
+                <strong id="heroScore">72</strong>
+            </div>
+        </div>
     </header>
 
-    <nav>
-        <button onclick="mostrarTela('jogo')">Jogo</button>
-        <button onclick="mostrarTela('simulacao')">Simulação 5 Anos</button>
-    </nav>
+    <div class="turn-progress-shell" aria-hidden="true">
+        <div id="turnProgress" class="turn-progress"></div>
+    </div>
 
-    <main>
+    <main class="layout">
 
-        <section id="jogo" class="tela ativa">
-
-            <h2>Gerencie sua Comunidade</h2>
-
-            <div class="painel">
-
-                <div class="card">
-                    <h3>🌾 Alimentos</h3>
-                    <p id="alimentos">100</p>
+        <section class="panel overview-panel">
+            <div class="panel-header">
+                <div>
+                    <p class="panel-kicker">Estado atual</p>
+                    <h2>Indicadores da comunidade</h2>
                 </div>
-
-                <div class="card">
-                    <h3>👨‍👩‍👧‍👦 População</h3>
-                    <p id="populacao">100</p>
+                <div class="status-row">
+                    <span id="foodStatus" class="status-chip">Equilibrado</span>
+                    <span id="soilStatus" class="status-chip">Solo saudável</span>
+                    <span id="waterStatus" class="status-chip">Aquíferos estáveis</span>
+                    <span id="giniStatus" class="status-chip">Baixa desigualdade</span>
                 </div>
-
-                <div class="card">
-                    <h3>🌳 Sustentabilidade</h3>
-                    <p id="sustentabilidade">50</p>
-                </div>
-
             </div>
 
-            <button id="sortearEvento">
-                Próximo Evento
-            </button>
-
-            <div id="evento" class="evento">
-                Clique para iniciar.
-            </div>
-
-            <div id="opcoes"></div>
-
+            <div id="statsGrid" class="stats-grid"></div>
         </section>
 
-        <section id="simulacao" class="tela">
+        <section class="grid-two">
+            <section class="panel">
+                <div class="panel-header compact">
+                    <div>
+                        <p class="panel-kicker">Pilar 1</p>
+                        <h2>Matriz Agrícola</h2>
+                    </div>
+                    <span class="panel-note">A soma precisa permanecer em 100%</span>
+                </div>
+                <div id="matrixControls" class="control-stack"></div>
+            </section>
 
-            <h2>E se todos fizessem isso por 5 anos?</h2>
+            <section class="panel">
+                <div class="panel-header compact">
+                    <div>
+                        <p class="panel-kicker">Pilar 2</p>
+                        <h2>Árvore de Tecnologias</h2>
+                    </div>
+                    <span class="panel-note">Investimentos permanentes</span>
+                </div>
+                <div id="techTree" class="tech-grid"></div>
+            </section>
+        </section>
 
-            <p id="resultadoFinal">
-                Jogue primeiro para gerar um cenário.
-            </p>
+        <section class="panel">
+            <div class="panel-header compact">
+                <div>
+                    <p class="panel-kicker">Pilar 3</p>
+                    <h2>Políticas Sociais</h2>
+                </div>
+                <span class="panel-note">Distribuição e subsídio alteram o Índice de Gini</span>
+            </div>
+            <div id="policyControls" class="policy-grid"></div>
+        </section>
 
-            <button onclick="gerarSimulacao()">
-                Gerar Simulação
-            </button>
+        <section class="panel action-panel">
+            <div class="panel-header compact">
+                <div>
+                    <p class="panel-kicker">Motor</p>
+                    <h2>Ações do turno</h2>
+                </div>
+                <span class="panel-note">Observer atualiza a interface automaticamente</span>
+            </div>
 
+            <div class="action-row">
+                <button id="nextTurnBtn" class="primary-action">Executar turno</button>
+                <button id="predictBtn" class="ghost-action">Projetar Futuro (5 Anos)</button>
+                <button id="saveBtn" class="ghost-action">Salvar Jogo</button>
+                <button id="loadBtn" class="ghost-action">Carregar Jogo</button>
+                <button id="resetBtn" class="ghost-action">Novo Jogo</button>
+            </div>
+
+            <div class="turn-summary">
+                <div>
+                    <span class="summary-label">Fome</span>
+                    <strong id="summaryHunger">12%</strong>
+                </div>
+                <div>
+                    <span class="summary-label">Produção</span>
+                    <strong id="summaryFood">160</strong>
+                </div>
+                <div>
+                    <span class="summary-label">Capital</span>
+                    <strong id="summaryCapital">140</strong>
+                </div>
+                <div>
+                    <span class="summary-label">Histórico</span>
+                    <strong id="summaryHistory">12 turnos</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel chart-panel">
+            <div class="panel-header compact">
+                <div>
+                    <p class="panel-kicker">Observabilidade</p>
+                    <h2>Histórico das últimas 12 rodadas</h2>
+                </div>
+                <span class="panel-note">Fome em vermelho e saúde do solo em verde</span>
+            </div>
+            <canvas id="historyChart" width="960" height="320" aria-label="Gráfico de histórico da simulação"></canvas>
+        </section>
+
+        <section class="panel log-panel">
+            <div class="panel-header compact">
+                <div>
+                    <p class="panel-kicker">Eventos</p>
+                    <h2>Registro da simulação</h2>
+                </div>
+                <span class="panel-note">Feedbacks climáticos e decisões do jogador</span>
+            </div>
+            <div id="eventLog" class="event-log"></div>
         </section>
 
     </main>
+
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <div id="reportModal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="reportTitle">
+            <div class="modal-header">
+                <div>
+                    <p class="panel-kicker">Relatório de Impacto</p>
+                    <h2 id="reportTitle">Projeção de 5 anos</h2>
+                </div>
+                <button class="icon-button" data-close-modal aria-label="Fechar relatório">×</button>
+            </div>
+            <div id="reportContent" class="report-content"></div>
+            <div class="modal-actions">
+                <button class="ghost-action" data-close-modal>Fechar</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 
