@@ -1,6 +1,20 @@
 # 🌾 Distrito 2 – O Preço da Fome
 
-> "Pequenas decisões, repetidas ao longo do tempo, podem transformar o futuro de uma comunidade."
+### Uma narrativa digital interativa sobre fome, sustentabilidade e o impacto das nossas escolhas.
+
+**Projeto desenvolvido por:**
+
+* Augusto Lima Damasceno
+* Eliezer da Cruz Moreira
+* Gabriel Machado Martins
+* Matheus de Souza Gonçalves
+* Nicolas de Azevedo Andrade Santana
+
+**Curso:** Técnico em Informática
+**Disciplina:** Pensamento Computacional
+**ODS Relacionado:** ODS 2 – Fome Zero e Agricultura Sustentável
+
+---
 
 ## 📖 Sobre o projeto
 
