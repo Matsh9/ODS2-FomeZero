@@ -213,6 +213,17 @@ function updateBar(name, value) {
 function loadEvent() {
     document.getElementById("feedback").textContent = "";
 
+    const newsFeed = document.getElementById("newsFeed");
+    const commentsList = document.getElementById("commentsList");
+
+    if (newsFeed) {
+        newsFeed.style.display = "none";
+    }
+
+    if (commentsList) {
+        commentsList.innerHTML = "";
+    }
+
     if (usedEvents.length === events.length) {
         usedEvents = [];
     }
@@ -246,6 +257,26 @@ function makeChoice(choice, eventTitle) {
 
     const choicesDiv = document.getElementById("choices");
     choicesDiv.innerHTML = "";
+
+    const newsFeed = document.getElementById("newsFeed");
+    const newsText = document.getElementById("newsText");
+    const commentsList = document.getElementById("commentsList");
+
+    if (newsFeed && newsText && commentsList) {
+        newsFeed.style.display = "block";
+
+        newsText.textContent = choice.news || gerarNoticia(eventTitle, choice.text);
+
+        commentsList.innerHTML = "";
+
+        const comments = choice.comments || gerarComentarios(choice.effect);
+
+        comments.forEach(comment => {
+            const li = document.createElement("li");
+            li.textContent = comment;
+            commentsList.appendChild(li);
+        });
+    }
 
     history.unshift(`${eventTitle}: ${choice.text}`);
 
@@ -286,6 +317,52 @@ function makeChoice(choice, eventTitle) {
             loadEvent();
         }
     };
+}
+function gerarNoticia(eventTitle, choiceText) {
+    return `${eventTitle}: governo decide "${choiceText}" e divide opiniões no Distrito 2.`;
+}
+
+function gerarComentarios(effect) {
+    const comments = [];
+
+    if (effect.food > 10) {
+        comments.push("❤️ 'Pelo menos agora mais famílias vão ter comida na mesa.'");
+    }
+
+    if (effect.food < 0) {
+        comments.push("😡 'Como vamos viver se a comida está diminuindo?'");
+    }
+
+    if (effect.money < -10) {
+        comments.push("💸 'A ideia é boa, mas quem vai pagar essa conta?'");
+    }
+
+    if (effect.money > 10) {
+        comments.push("💰 'Finalmente alguém pensou na economia da cidade.'");
+    }
+
+    if (effect.env < -10) {
+        comments.push("🌵 'Estão destruindo a natureza em troca de resultado rápido.'");
+    }
+
+    if (effect.env > 10) {
+        comments.push("🌱 'Essa decisão protege o futuro da nossa comunidade.'");
+    }
+
+    if (effect.people < -10) {
+        comments.push("😡 'A população não foi ouvida nessa decisão.'");
+    }
+
+    if (effect.people > 10) {
+        comments.push("😊 'Dessa vez senti que pensaram nas pessoas.'");
+    }
+
+    if (comments.length === 0) {
+        comments.push("😐 'Ainda é cedo para saber se isso foi bom ou ruim.'");
+        comments.push("💬 'A cidade está dividida sobre essa decisão.'");
+    }
+
+    return comments.slice(0, 3);
 }
 
 function updateHistory() {

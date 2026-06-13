@@ -277,7 +277,8 @@ header {
         font-size: 18px;
     }
 
-    p, li {
+    p,
+    li {
         font-size: 16px;
     }
 
@@ -326,4 +327,34 @@ header {
     .warning {
         font-size: 15px;
     }
+}
+.news-feed {
+    margin-top: 20px;
+    background: #101820;
+    border-left: 4px solid #4dabf7;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.news-feed h3 {
+    margin-top: 0;
+    color: #4dabf7;
+}
+
+.comments {
+    margin-top: 15px;
+}
+
+.comments h4 {
+    color: #ffcc29;
+    margin-bottom: 10px;
+}
+
+.comments ul {
+    padding-left: 20px;
+}
+
+.comments li {
+    margin-bottom: 8px;
+    color: #ddd;
 }
