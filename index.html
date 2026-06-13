@@ -23,71 +23,71 @@
         <section id="tutorial" class="screen">
             <div class="box">
                 <h2>Como jogar</h2>
-                <p>Você é o administrador de uma comunidade em crise
-                    alimentar.</p>
-                <p>Suas decisões afetam quatro áreas:</p>
-                <ul>
-                    <li>📦 Comida</li>
-                    <li>💰 Economia</li>
-                    <li>🌱 Meio Ambiente</li>
-                    <li>😊 Aprovação Popular</li>
+
+                <p>
+                    Você é o administrador de uma comunidade que enfrenta
+                    desafios
+                    relacionados à fome, à distribuição de alimentos e à
+                    sustentabilidade.
+                </p>
+
+                <p>
+                    Durante <strong>10 anos</strong>, diferentes situações
+                    aparecerão
+                    e você deverá tomar decisões importantes.
+                </p>
+
+                <div class="warning">
+                    ⚠️ <strong>Atenção:</strong> Em cada evento você poderá
+                    escolher
+                    apenas <strong>UMA</strong> opção.
+                    <br><br>
+                    Após fazer sua escolha, clique em
+                    <strong>"Continuar"</strong> para confirmar.
+                    <br><br>
+                    <strong>Suas decisões são definitivas e não podem ser
+                        desfeitas.</strong>
+                </div>
+
+                <h3>Suas escolhas afetam:</h3>
+
+                <ul class="tutorial-list">
+                    <li>📦 <strong>Comida:</strong> quantidade de alimentos
+                        disponível para a população.</li>
+
+                    <li>💰 <strong>Economia:</strong> recursos financeiros da
+                        cidade.</li>
+
+                    <li>🌱 <strong>Meio Ambiente:</strong> preservação dos
+                        recursos naturais.</li>
+
+                    <li>😊 <strong>Aprovação Popular:</strong> confiança e apoio
+                        da população.</li>
                 </ul>
-                <p>Se alguma barra chegar a 0, a cidade entra em colapso.</p>
-                <button onclick="startGame()">Estou pronto</button>
+
+                <div class="warning">
+                    🚨 Se qualquer indicador chegar a <strong>0%</strong>,
+                    sua cidade entrará em colapso e o jogo terminará.
+                </div>
+
+                <p>
+                    Sobreviva aos 10 anos e descubra qual dos
+                    <strong>8 finais possíveis</strong> você conquistará.
+                </p>
+
+                <p>
+                    💡 <em>
+                        Não existe decisão perfeita.
+                        Às vezes você precisará escolher entre resolver
+                        problemas imediatos
+                        ou proteger o futuro da comunidade.
+                    </em>
+                </p>
+
+                <button onclick="startGame()">
+                    Estou pronto para decidir
+                </button>
             </div>
-        </section>
-
-        <section id="game" class="screen">
-            <header>
-                <h1>Distrito 2</h1>
-                <p>Ano <span id="year">1</span> de 10</p>
-            </header>
-
-            <main class="game-area">
-                <div class="status">
-                    <div class="bar-box">
-                        <span>📦 Comida</span>
-                        <div class="bar"><div id="foodBar"></div></div>
-                        <strong id="foodText">70%</strong>
-                    </div>
-
-                    <div class="bar-box">
-                        <span>💰 Economia</span>
-                        <div class="bar"><div id="moneyBar"></div></div>
-                        <strong id="moneyText">60%</strong>
-                    </div>
-
-                    <div class="bar-box">
-                        <span>🌱 Meio Ambiente</span>
-                        <div class="bar"><div id="envBar"></div></div>
-                        <strong id="envText">70%</strong>
-                    </div>
-
-                    <div class="bar-box">
-                        <span>😊 Aprovação</span>
-                        <div class="bar"><div id="peopleBar"></div></div>
-                        <strong id="peopleText">60%</strong>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h2 id="cardTitle">Evento</h2>
-                    <p id="cardText">Texto do evento</p>
-
-                    <div id="choices"></div>
-
-                    <p id="feedback"></p>
-
-                    <button id="continueBtn" style="display: none;">
-                        Continuar →
-                    </button>
-
-                    <div class="history">
-                        <h3>Últimas decisões</h3>
-                        <ul id="historyList"></ul>
-                    </div>
-                </div>
-            </main>
         </section>
 
         <section id="final" class="screen">

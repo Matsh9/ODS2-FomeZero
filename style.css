@@ -1,203 +1,213 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #101820;
-  color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #101820;
+    color: white;
 }
 
 .screen {
-  display: none;
-  min-height: 100vh;
-  padding: 30px;
+    display: none;
+    min-height: 100vh;
+    padding: 30px;
 }
 
 .screen.active {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero {
-  background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.7)),
-  url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80");
-  background-size: cover;
-  background-position: center;
+    background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .7)),
+        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80");
+    background-size: cover;
+    background-position: center;
 }
 
 .box {
-  background: rgba(0,0,0,.75);
-  padding: 35px;
-  max-width: 650px;
-  border-radius: 18px;
-  text-align: center;
-  box-shadow: 0 0 25px #000;
+    background: rgba(0, 0, 0, .75);
+    padding: 35px;
+    max-width: 650px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 0 25px #000;
 }
 
 h1 {
-  font-size: 48px;
-  margin-bottom: 5px;
-  color: #ffcc29;
+    font-size: 48px;
+    margin-bottom: 5px;
+    color: #ffcc29;
 }
 
 h2 {
-  color: #7ed957;
+    color: #7ed957;
 }
 
-p, li {
-  font-size: 18px;
-  line-height: 1.5;
+p,
+li {
+    font-size: 18px;
+    line-height: 1.5;
 }
 
 ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 button {
-  background: #ffcc29;
-  border: none;
-  color: #101820;
-  padding: 14px 22px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: bold;
-  margin: 10px;
-  font-size: 16px;
-  transition: .2s;
+    background: #ffcc29;
+    border: none;
+    color: #101820;
+    padding: 14px 22px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px;
+    font-size: 16px;
+    transition: .2s;
 }
 
 button:hover {
-  transform: scale(1.04);
-  background: #ffe066;
+    transform: scale(1.04);
+    background: #ffe066;
 }
 
 header {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 #game {
-  display: none;
-  flex-direction: column;
-  align-items: center;
+    display: none;
+    flex-direction: column;
+    align-items: center;
 }
 
 #game.active {
-  display: flex;
+    display: flex;
 }
 
 .game-area {
-  width: 100%;
-  max-width: 1000px;
-  display: grid;
-  grid-template-columns: 1fr 1.3fr;
-  gap: 25px;
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 25px;
 }
 
-.status, .card {
-  background: #1b2a35;
-  border-radius: 18px;
-  padding: 25px;
-  box-shadow: 0 0 15px #00000066;
+.status,
+.card {
+    background: #1b2a35;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 0 15px #00000066;
 }
 
 .bar-box {
-  margin-bottom: 22px;
+    margin-bottom: 22px;
 }
 
 .bar-box span {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
 }
 
 .bar {
-  height: 18px;
-  background: #31424f;
-  border-radius: 20px;
-  overflow: hidden;
+    height: 18px;
+    background: #31424f;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .bar div {
-  height: 100%;
-  width: 50%;
-  background: linear-gradient(90deg, #7ed957, #ffcc29);
-  transition: .4s;
+    height: 100%;
+    width: 50%;
+    background: linear-gradient(90deg, #7ed957, #ffcc29);
+    transition: .4s;
 }
 
 .card h2 {
-  font-size: 30px;
+    font-size: 30px;
 }
 
 #cardText {
-  min-height: 90px;
+    min-height: 90px;
 }
 
 #choices button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  background: #263847;
-  color: white;
-  border: 1px solid #7ed957;
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: #263847;
+    color: white;
+    border: 1px solid #7ed957;
 }
 
 #choices button:hover {
-  background: #355066;
+    background: #355066;
 }
 
 #feedback {
-  color: #ffcc29;
-  font-weight: bold;
-  margin-top: 20px;
+    color: #ffcc29;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
 .final-box {
-  border: 2px solid #ffcc29;
+    border: 2px solid #ffcc29;
 }
 
 @media (max-width: 800px) {
-  .game-area {
-    grid-template-columns: 1fr;
-  }
+    .game-area {
+        grid-template-columns: 1fr;
+    }
 
-  h1 {
-    font-size: 36px;
-  }
+    h1 {
+        font-size: 36px;
+    }
 }
 
 .history {
-  margin-top: 20px;
-  background: #101820;
-  padding: 15px;
-  border-radius: 12px;
-  border-left: 4px solid #ffcc29;
+    margin-top: 20px;
+    background: #101820;
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 4px solid #ffcc29;
 }
 
 .history h3 {
-  margin-top: 0;
-  color: #ffcc29;
+    margin-top: 0;
+    color: #ffcc29;
 }
 
 .history li {
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #ddd;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #ddd;
 }
 
 .danger {
-  animation: pulse 0.5s;
+    animation: pulse 0.5s;
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 #continueBtn {
@@ -210,4 +220,30 @@ header {
 
 #continueBtn:hover {
     background: #94ec72;
+}
+
+.warning {
+    background: rgba(255, 204, 41, 0.15);
+    border-left: 4px solid #ffcc29;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    color: #ffcc29;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.tutorial-list {
+    text-align: left;
+    padding-left: 20px;
+    line-height: 1.8;
+}
+
+.tutorial-list li {
+    margin-bottom: 12px;
+}
+
+#tutorial h3 {
+    color: #7ed957;
+    margin-top: 25px;
 }
