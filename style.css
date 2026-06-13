@@ -446,3 +446,153 @@ header {
     color: #ffcc29;
     margin-top: 0;
 }
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .screen {
+        padding: 14px;
+        min-height: 100vh;
+        align-items: flex-start;
+    }
+
+    .box {
+        width: 100%;
+        max-width: 100%;
+        padding: 22px;
+        margin-top: 12px;
+        border-radius: 16px;
+    }
+
+    h1 {
+        font-size: 32px;
+        line-height: 1.1;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p, li {
+        font-size: 15.5px;
+        line-height: 1.5;
+    }
+
+    button {
+        width: 100%;
+        min-height: 48px;
+        margin: 8px 0;
+        font-size: 15px;
+    }
+
+    #game.active {
+        display: block;
+    }
+
+    header {
+        margin-bottom: 12px;
+    }
+
+    header h1 {
+        font-size: 30px;
+    }
+
+    .game-area {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        width: 100%;
+    }
+
+    .status,
+    .card {
+        width: 100%;
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .bar-box {
+        margin-bottom: 14px;
+    }
+
+    .bar {
+        height: 16px;
+    }
+
+    #choices button {
+        width: 100%;
+        padding: 14px;
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    #cardText {
+        min-height: auto;
+    }
+
+    .news-feed,
+    .character-event,
+    .history,
+    .final-stats,
+    .did-you-know,
+    .characters-final,
+    .endings-list,
+    .warning {
+        padding: 13px;
+        border-radius: 12px;
+    }
+
+    .history {
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
+    .history li,
+    .comments li {
+        font-size: 14px;
+    }
+
+    .comments ul,
+    .tutorial-list {
+        padding-left: 18px;
+    }
+
+    .final-box {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 380px) {
+    .screen {
+        padding: 10px;
+    }
+
+    .box,
+    .status,
+    .card {
+        padding: 14px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 21px;
+    }
+
+    p, li {
+        font-size: 14.5px;
+    }
+
+    button,
+    #choices button {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
