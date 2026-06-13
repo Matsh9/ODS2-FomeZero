@@ -1,3 +1,6 @@
+let unlockedEndings =
+    JSON.parse(localStorage.getItem("district2_endings")) || [];
+
 let year = 1;
 let usedEvents = [];
 
@@ -229,12 +232,10 @@ function loadEvent() {
 }
 
 function makeChoice(choice, eventTitle) {
-    stats.food += choice.effect.food;
-    stats.money += choice.effect.money;
-    stats.env += choice.effect.env;
-    stats.people += choice.effect.people;
+    document.getElementById("feedback").textContent = choice.feedback;
 
-    limitStats();
+    const choicesDiv = document.getElementById("choices");
+    choicesDiv.innerHTML = "";
 
     history.unshift(`${eventTitle}: ${choice.text}`);
 
@@ -242,20 +243,24 @@ function makeChoice(choice, eventTitle) {
         history.pop();
     }
 
-    document.getElementById("feedback").textContent = choice.feedback;
+    updateHistory();
 
     const card = document.querySelector(".card");
     card.classList.add("danger");
     setTimeout(() => card.classList.remove("danger"), 500);
 
-    updateBars();
-    updateHistory();
-
     const continueBtn = document.getElementById("continueBtn");
-
     continueBtn.style.display = "block";
 
     continueBtn.onclick = () => {
+        stats.food += choice.effect.food;
+        stats.money += choice.effect.money;
+        stats.env += choice.effect.env;
+        stats.people += choice.effect.people;
+
+        limitStats();
+        updateBars();
+
         continueBtn.style.display = "none";
 
         if (checkGameOver()) {
@@ -298,6 +303,21 @@ function limitStats() {
 
 function checkGameOver() {
     return stats.food <= 0 || stats.money <= 0 || stats.env <= 0 || stats.people <= 0;
+}
+function unlockEnding(name) {
+    if (!unlockedEndings.includes(name)) {
+        unlockedEndings.push(name);
+        localStorage.setItem("district2_endings", JSON.stringify(unlockedEndings));
+    }
+}
+
+function calculateScore() {
+    return Math.round(
+        stats.food * 2 +
+        stats.money * 1.5 +
+        stats.env * 2 +
+        stats.people * 2
+    );
 }
 
 function showFinal() {
@@ -351,9 +371,17 @@ function showFinal() {
         future = "O resultado mostra que pequenas decisões ruins, repetidas por anos, podem manter a fome e a desigualdade.";
     }
 
+    if (!checkGameOver()) {
+        unlockEnding(title);
+    }
+
+    const score = calculateScore();
     document.getElementById("finalTitle").textContent = title;
     document.getElementById("finalText").textContent = text;
     document.getElementById("futureText").textContent = future;
+    document.getElementById("scoreText").textContent = `Pontuação final: ${score} pontos`;
+    document.getElementById("endingProgress").textContent =
+        `Finais descobertos: ${unlockedEndings.length}/8`;
 }
 
 function restartGame() {
