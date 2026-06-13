@@ -4,11 +4,11 @@
 
 **Projeto desenvolvido por:**
 
+* Nicolas de Azevedo Andrade Santana
 * Augusto Lima Damasceno
 * Eliezer da Cruz Moreira
 * Gabriel Machado Martins
 * Matheus de Souza Gonçalves
-* Nicolas de Azevedo Andrade Santana
 
 **Curso:** Técnico em Informática
 **Disciplina:** Pensamento Computacional
