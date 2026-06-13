@@ -412,56 +412,67 @@ function gerarDestinoFinalPersonagens() {
 
 function mostrarHistoriaPersonagem(eventTitle, choice) {
     const characterEvent = document.getElementById("characterEvent");
+    const characterName = document.getElementById("characterName");
     const characterText = document.getElementById("characterText");
 
-    if (!characterEvent || !characterText) {
+    if (!characterEvent || !characterName || !characterText) {
         return;
     }
 
     characterEvent.style.display = "block";
 
     if (eventTitle.includes("Merenda")) {
-        if (choice.effect.food > 0 && choice.effect.people > 0) {
-            characterText.textContent =
-                "👧 Ana conseguiu estudar melhor porque teve acesso à merenda escolar.";
-        } else {
-            characterText.textContent =
-                "👧 Ana começou a sentir os impactos da insegurança alimentar na escola.";
-        }
-    } else if (eventTitle.includes("Agricultura") || eventTitle.includes("Jovens")) {
-        if (choice.effect.env > 0 || choice.effect.food > 10) {
-            characterText.textContent =
-                "👨‍🌾 Lucas viu uma chance de continuar no campo com mais dignidade.";
-        } else {
-            characterText.textContent =
-                "👨‍🌾 Lucas ficou desanimado e pensou em abandonar a agricultura.";
-        }
-    } else if (eventTitle.includes("Desperdício") || eventTitle.includes("Doação")) {
-        if (choice.effect.food > 0) {
-            characterText.textContent =
-                "👵 Dona Maria recebeu ajuda alimentar e conseguiu passar a semana com mais segurança.";
-        } else {
-            characterText.textContent =
-                "👵 Dona Maria continuou dependendo da ajuda de vizinhos para se alimentar.";
-        }
-    } else if (eventTitle.includes("Feira") || eventTitle.includes("mercados")) {
-        if (choice.effect.money > 0 || choice.effect.food > 0) {
-            characterText.textContent =
-                "🏪 Carlos percebeu mudanças no comércio local depois da sua decisão.";
-        } else {
-            characterText.textContent =
-                "🏪 Carlos viu o movimento cair e ficou preocupado com o futuro do mercado.";
-        }
+        characterName.textContent = "👧 Ana";
+        characterText.textContent =
+            choice.effect.food > 0 && choice.effect.people > 0
+                ? "Hoje consegui prestar atenção na aula porque não estava com fome."
+                : "Fica difícil aprender quando a barriga está vazia.";
+
+    } else if (eventTitle.includes("Desperdício") || eventTitle.includes("Doação") || eventTitle.includes("Fome")) {
+        characterName.textContent = "👵 Dona Maria";
+        characterText.textContent =
+            choice.effect.food > 0
+                ? "Não gosto de depender dos outros, mas essa ajuda salvou minha semana."
+                : "Às vezes eu só queria ter certeza de que amanhã vai ter comida.";
+
+    } else if (eventTitle.includes("Agricultura") || eventTitle.includes("Jovens") || eventTitle.includes("Praga") || eventTitle.includes("Queimada")) {
+        characterName.textContent = "👨‍🌾 Lucas";
+        characterText.textContent =
+            choice.effect.env > 0 || choice.effect.food > 10
+                ? "Ainda dá para acreditar no campo quando alguém investe no futuro."
+                : "Eu queria continuar produzindo comida, mas parece que ninguém olha para quem vive da terra.";
+
+    } else if (eventTitle.includes("Feira") || eventTitle.includes("mercados") || eventTitle.includes("econômica")) {
+        characterName.textContent = "🏪 Carlos";
+        characterText.textContent =
+            choice.effect.money > 0 || choice.effect.food > 0
+                ? "Quando a cidade se organiza, até o pequeno comerciante consegue ajudar."
+                : "Se a crise continuar assim, não sei por quanto tempo meu mercado fica aberto.";
+
     } else {
-        const stories = [
-            "👵 Dona Maria acompanhou a decisão com esperança, mas ainda teme pelo futuro.",
-            "👧 Ana ouviu os adultos comentando sobre a crise alimentar na escola.",
-            "👨‍🌾 Lucas percebeu que o futuro da agricultura depende das escolhas feitas hoje.",
-            "🏪 Carlos sentiu que cada decisão da cidade também afeta os pequenos comerciantes."
+        const falas = [
+            {
+                nome: "👵 Dona Maria",
+                texto: "A gente sente no prato cada decisão tomada lá em cima."
+            },
+            {
+                nome: "👧 Ana",
+                texto: "Eu só queria que nenhuma criança precisasse estudar com fome."
+            },
+            {
+                nome: "👨‍🌾 Lucas",
+                texto: "Produzir comida também depende de água, solo e apoio."
+            },
+            {
+                nome: "🏪 Carlos",
+                texto: "Quando falta comida, todo mundo sente: quem compra, quem vende e quem planta."
+            }
         ];
 
-        characterText.textContent =
-            stories[Math.floor(Math.random() * stories.length)];
+        const fala = falas[Math.floor(Math.random() * falas.length)];
+
+        characterName.textContent = fala.nome;
+        characterText.textContent = fala.texto;
     }
 }
 
