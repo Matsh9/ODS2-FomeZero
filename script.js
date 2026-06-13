@@ -629,6 +629,40 @@ function showFinal() {
     document.getElementById("endingProgress").textContent =
         `Finais descobertos: ${unlockedEndings.length}/8`;
 }
+const allEndings = [
+    "🏆 Guardião da Colheita",
+    "🌾 Futuro Sustentável",
+    "❤️ Líder Popular Endividado",
+    "💰 Mestre da Economia",
+    "🌳 Protetor da Natureza",
+    "⚖️ O Equilibrista",
+    "🏙️ Cidade Rica, Povo com Fome",
+    "🌵 O Preço da Produção"
+];
+
+function showEndingsList() {
+    const endingsList = document.getElementById("endingsList");
+
+    if (!endingsList) {
+        return;
+    }
+
+    endingsList.style.display =
+        endingsList.style.display === "none" ? "block" : "none";
+
+    let html = "<h3>🏆 Finais descobertos</h3>";
+
+    allEndings.forEach(ending => {
+        const unlocked = unlockedEndings.includes(ending);
+        html += `<p>${unlocked ? "✅" : "❌"} ${ending}</p>`;
+    });
+
+    const validUnlocked = allEndings.filter(ending => unlockedEndings.includes(ending));
+
+    html += `<strong>${validUnlocked.length}/8 finais descobertos</strong>`;
+
+    endingsList.innerHTML = html;
+}
 
 function restartGame() {
     showScreen("home");
