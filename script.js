@@ -1,4 +1,5 @@
 let year = 1;
+let usedEvents = [];
 
 let stats = {
   food: 70,
@@ -7,199 +8,166 @@ let stats = {
   people: 60
 };
 
-let decisions = [];
+let history = [];
 
 const events = [
   {
     title: "☀️ Seca Histórica",
-    text: "As chuvas diminuíram e a produção de alimentos caiu. A população está preocupada.",
+    text: "As chuvas diminuíram. Famílias já começaram a estocar comida.",
     choices: [
-      {
-        text: "Importar alimentos rapidamente",
-        effect: { food: 25, money: -20, env: -5, people: 10 },
-        feedback: "A fome diminuiu, mas a cidade gastou muito dinheiro."
-      },
-      {
-        text: "Racionar alimentos",
-        effect: { food: -5, money: 5, env: 5, people: -20 },
-        feedback: "Você economizou recursos, mas a população ficou insatisfeita."
-      },
-      {
-        text: "Investir em irrigação sustentável",
-        effect: { food: 10, money: -15, env: 15, people: 5 },
-        feedback: "A solução foi mais lenta, mas fortaleceu o futuro da comunidade."
-      }
+      { text: "Importar alimentos", effect: { food: 25, money: -20, env: -5, people: 10 }, feedback: "Você salvou famílias agora, mas a cidade gastou muito." },
+      { text: "Racionar comida", effect: { food: -10, money: 8, env: 5, people: -22 }, feedback: "As filas cresceram. Muita gente sentiu que foi abandonada." },
+      { text: "Investir em irrigação sustentável", effect: { food: 12, money: -15, env: 15, people: 6 }, feedback: "Foi caro, mas a comunidade viu esperança no futuro." }
     ]
   },
   {
     title: "🍔 Desperdício nos mercados",
-    text: "Mercados estão jogando fora alimentos que ainda poderiam ser consumidos.",
+    text: "Toneladas de alimentos bons estão sendo jogadas fora.",
     choices: [
-      {
-        text: "Criar programa de redistribuição",
-        effect: { food: 20, money: -10, env: 10, people: 15 },
-        feedback: "Muitas famílias receberam alimentos que seriam desperdiçados."
-      },
-      {
-        text: "Ignorar, pois o governo tem outros problemas",
-        effect: { food: -15, money: 5, env: -10, people: -15 },
-        feedback: "O desperdício continuou e a fome aumentou."
-      },
-      {
-        text: "Fazer campanha educativa nas escolas",
-        effect: { food: 8, money: -5, env: 12, people: 8 },
-        feedback: "A mudança foi pequena no começo, mas melhorou a consciência da população."
-      }
+      { text: "Criar banco de alimentos", effect: { food: 22, money: -10, env: 10, people: 18 }, feedback: "Famílias receberam alimentos que iriam para o lixo." },
+      { text: "Multar mercados", effect: { food: 10, money: 12, env: 6, people: -8 }, feedback: "Funcionou, mas comerciantes reclamaram da sua decisão." },
+      { text: "Ignorar", effect: { food: -18, money: 4, env: -12, people: -15 }, feedback: "O desperdício continuou enquanto pessoas passavam fome." }
     ]
   },
   {
     title: "🦗 Praga na plantação",
-    text: "Uma praga atingiu parte das plantações e ameaça a próxima colheita.",
+    text: "Uma praga ameaça destruir a próxima colheita.",
     choices: [
-      {
-        text: "Usar agrotóxicos fortes",
-        effect: { food: 20, money: -10, env: -25, people: -5 },
-        feedback: "A produção foi salva, mas o meio ambiente sofreu bastante."
-      },
-      {
-        text: "Usar controle biológico",
-        effect: { food: 10, money: -15, env: 15, people: 5 },
-        feedback: "A solução foi sustentável, mas exigiu investimento."
-      },
-      {
-        text: "Não agir agora",
-        effect: { food: -25, money: 5, env: 5, people: -15 },
-        feedback: "A praga se espalhou e prejudicou a segurança alimentar."
-      }
+      { text: "Usar agrotóxicos fortes", effect: { food: 24, money: -8, env: -28, people: -5 }, feedback: "A colheita foi salva, mas rios e solos foram contaminados." },
+      { text: "Controle biológico", effect: { food: 12, money: -15, env: 18, people: 8 }, feedback: "Foi mais sustentável e gerou confiança na população." },
+      { text: "Esperar passar", effect: { food: -28, money: 5, env: 5, people: -18 }, feedback: "A praga avançou. A fome começou a aparecer nos bairros pobres." }
     ]
   },
   {
-    title: "👶 Aumento da população",
-    text: "Novas famílias chegaram à cidade em busca de comida e trabalho.",
+    title: "👶 População aumentou",
+    text: "Novas famílias chegaram procurando alimento e trabalho.",
     choices: [
-      {
-        text: "Acolher as famílias e ampliar a produção",
-        effect: { food: -10, money: -15, env: -5, people: 15 },
-        feedback: "A cidade acolheu quem precisava, mas a pressão sobre os recursos aumentou."
-      },
-      {
-        text: "Criar cadastro para priorizar os mais vulneráveis",
-        effect: { food: 5, money: -5, env: 0, people: 10 },
-        feedback: "A distribuição ficou mais justa e organizada."
-      },
-      {
-        text: "Fechar a entrada da cidade",
-        effect: { food: 5, money: 5, env: 5, people: -25 },
-        feedback: "A cidade preservou recursos, mas aumentou a desigualdade."
-      }
+      { text: "Acolher e ampliar produção", effect: { food: -12, money: -14, env: -6, people: 18 }, feedback: "A cidade ficou mais cheia, mas mostrou humanidade." },
+      { text: "Priorizar famílias vulneráveis", effect: { food: 6, money: -7, env: 0, people: 12 }, feedback: "A distribuição ficou mais justa." },
+      { text: "Fechar as portas", effect: { food: 8, money: 8, env: 5, people: -28 }, feedback: "Os recursos foram preservados, mas a desigualdade aumentou." }
     ]
   },
   {
     title: "🌱 Agricultura familiar",
-    text: "Pequenos agricultores pedem apoio para produzir alimentos locais.",
+    text: "Pequenos agricultores pedem apoio para produzir comida local.",
     choices: [
-      {
-        text: "Financiar agricultura familiar",
-        effect: { food: 15, money: -15, env: 15, people: 15 },
-        feedback: "A produção local cresceu e a comunidade ficou mais forte."
-      },
-      {
-        text: "Apoiar apenas grandes produtores",
-        effect: { food: 20, money: 10, env: -20, people: -10 },
-        feedback: "A produção aumentou, mas a desigualdade também."
-      },
-      {
-        text: "Não investir",
-        effect: { food: -10, money: 10, env: 0, people: -10 },
-        feedback: "A cidade economizou, mas perdeu uma chance de fortalecer a produção local."
-      }
+      { text: "Financiar pequenos agricultores", effect: { food: 18, money: -15, env: 16, people: 18 }, feedback: "A comunidade ficou mais independente e sustentável." },
+      { text: "Apoiar grandes produtores", effect: { food: 24, money: 12, env: -22, people: -12 }, feedback: "A produção cresceu, mas poucos lucraram." },
+      { text: "Não investir", effect: { food: -12, money: 10, env: 0, people: -10 }, feedback: "A cidade economizou, mas perdeu uma chance importante." }
     ]
   },
   {
-    title: "📱 Influenciador incentiva desperdício",
-    text: "Uma trend viral incentiva jogar comida fora em vídeos.",
+    title: "📱 Trend do desperdício",
+    text: "Jovens viralizaram vídeos jogando comida fora.",
     choices: [
-      {
-        text: "Criar campanha nas redes com jovens",
-        effect: { food: 10, money: -5, env: 10, people: 12 },
-        feedback: "A linguagem jovem ajudou a combater o desperdício."
-      },
-      {
-        text: "Multar quem desperdiçar em público",
-        effect: { food: 5, money: 10, env: 5, people: -15 },
-        feedback: "As multas reduziram parte do problema, mas geraram revolta."
-      },
-      {
-        text: "Ignorar a trend",
-        effect: { food: -15, money: 0, env: -10, people: -5 },
-        feedback: "A trend cresceu e piorou o desperdício."
-      }
+      { text: "Campanha com influenciadores", effect: { food: 12, money: -6, env: 10, people: 14 }, feedback: "A mensagem chegou nos jovens sem parecer sermão." },
+      { text: "Punir quem participar", effect: { food: 8, money: 8, env: 5, people: -18 }, feedback: "A trend caiu, mas você virou meme autoritário." },
+      { text: "Fingir que não viu", effect: { food: -16, money: 0, env: -10, people: -8 }, feedback: "A brincadeira virou hábito e o desperdício aumentou." }
     ]
   },
   {
-    title: "🤖 Tecnologia sustentável",
-    text: "Uma startup oferece sensores para economizar água nas plantações.",
+    title: "🤖 Tecnologia agrícola",
+    text: "Sensores podem economizar água nas plantações.",
     choices: [
-      {
-        text: "Comprar a tecnologia",
-        effect: { food: 10, money: -20, env: 20, people: 5 },
-        feedback: "O investimento foi caro, mas melhorou a produção sustentável."
-      },
-      {
-        text: "Testar em poucas fazendas",
-        effect: { food: 5, money: -8, env: 10, people: 5 },
-        feedback: "O teste foi seguro e mostrou bons resultados."
-      },
-      {
-        text: "Recusar a proposta",
-        effect: { food: 0, money: 10, env: -5, people: -5 },
-        feedback: "A cidade economizou, mas perdeu uma oportunidade de inovação."
-      }
+      { text: "Comprar para toda cidade", effect: { food: 14, money: -22, env: 22, people: 8 }, feedback: "Caro, mas o futuro agradeceu." },
+      { text: "Testar em poucas fazendas", effect: { food: 8, money: -8, env: 12, people: 7 }, feedback: "Foi uma escolha segura e inteligente." },
+      { text: "Recusar tecnologia", effect: { food: -2, money: 10, env: -6, people: -5 }, feedback: "Você economizou agora, mas perdeu eficiência." }
     ]
   },
   {
     title: "💸 Crise econômica",
-    text: "A arrecadação caiu e o orçamento para programas sociais foi reduzido.",
+    text: "O orçamento caiu e programas sociais estão ameaçados.",
     choices: [
-      {
-        text: "Manter programas de alimentação",
-        effect: { food: 15, money: -20, env: 0, people: 15 },
-        feedback: "A população foi protegida, mas a economia ficou pressionada."
-      },
-      {
-        text: "Cortar programas sociais",
-        effect: { food: -25, money: 20, env: 0, people: -25 },
-        feedback: "A economia respirou, mas a fome cresceu muito."
-      },
-      {
-        text: "Buscar parcerias com ONGs",
-        effect: { food: 10, money: -5, env: 5, people: 10 },
-        feedback: "As parcerias ajudaram sem destruir o orçamento."
-      }
+      { text: "Manter alimentação popular", effect: { food: 18, money: -22, env: 0, people: 18 }, feedback: "Você protegeu os mais pobres, mas a conta veio alta." },
+      { text: "Cortar programas sociais", effect: { food: -28, money: 24, env: 0, people: -28 }, feedback: "A economia respirou. A população, não." },
+      { text: "Buscar ONGs e parcerias", effect: { food: 12, money: -6, env: 6, people: 12 }, feedback: "A cidade encontrou apoio sem carregar tudo sozinha." }
+    ]
+  },
+  {
+    title: "🏫 Merenda escolar em risco",
+    text: "Escolas avisam que crianças estão indo estudar com fome.",
+    choices: [
+      { text: "Priorizar merenda escolar", effect: { food: 16, money: -12, env: 0, people: 20 }, feedback: "Crianças voltaram a estudar melhor. A cidade se emocionou." },
+      { text: "Reduzir porções", effect: { food: -8, money: 8, env: 0, people: -18 }, feedback: "A economia veio às custas de crianças com fome." },
+      { text: "Criar hortas nas escolas", effect: { food: 10, money: -8, env: 14, people: 14 }, feedback: "Os alunos aprenderam sustentabilidade na prática." }
+    ]
+  },
+  {
+    title: "🌳 Proposta de desmatamento",
+    text: "Empresários querem derrubar mata para plantar em larga escala.",
+    choices: [
+      { text: "Autorizar desmatamento", effect: { food: 28, money: 18, env: -35, people: -8 }, feedback: "A comida aumentou rápido, mas o futuro ficou mais seco." },
+      { text: "Proibir totalmente", effect: { food: -8, money: -8, env: 20, people: 6 }, feedback: "Você protegeu a natureza, mas a produção sentiu o impacto." },
+      { text: "Permitir só com reflorestamento", effect: { food: 12, money: 5, env: 8, people: 10 }, feedback: "Não agradou todo mundo, mas foi uma solução equilibrada." }
+    ]
+  },
+  {
+    title: "🚚 Doação de alimentos",
+    text: "Uma ONG oferece alimentos, mas exige organização na distribuição.",
+    choices: [
+      { text: "Aceitar e distribuir justamente", effect: { food: 22, money: -4, env: 0, people: 18 }, feedback: "A ajuda chegou para quem realmente precisava." },
+      { text: "Vender parte da doação", effect: { food: 8, money: 18, env: 0, people: -20 }, feedback: "O caixa melhorou, mas a população descobriu e se revoltou." },
+      { text: "Recusar por orgulho político", effect: { food: -18, money: 0, env: 0, people: -15 }, feedback: "A cidade perdeu ajuda por vaidade." }
+    ]
+  },
+  {
+    title: "🥬 Feira popular",
+    text: "Moradores querem uma feira com alimentos baratos aos domingos.",
+    choices: [
+      { text: "Apoiar a feira", effect: { food: 14, money: -8, env: 8, people: 18 }, feedback: "A comida ficou mais acessível e produtores locais venderam mais." },
+      { text: "Cobrar taxas altas", effect: { food: 2, money: 15, env: 0, people: -12 }, feedback: "A feira aconteceu, mas ficou cara para quem precisava." },
+      { text: "Não autorizar", effect: { food: -8, money: 2, env: 0, people: -15 }, feedback: "Você perdeu uma chance simples de aproximar comida e população." }
+    ]
+  },
+  {
+    title: "🧑‍🌾 Jovens abandonam o campo",
+    text: "Muitos jovens não querem trabalhar na agricultura.",
+    choices: [
+      { text: "Criar curso de tecnologia agrícola", effect: { food: 12, money: -12, env: 10, people: 12 }, feedback: "A agricultura ficou mais moderna e atrativa." },
+      { text: "Aumentar salários rurais", effect: { food: 15, money: -18, env: 0, people: 10 }, feedback: "Mais jovens ficaram, mas o orçamento apertou." },
+      { text: "Ignorar", effect: { food: -18, money: 4, env: 0, people: -10 }, feedback: "Com menos trabalhadores, a produção caiu." }
+    ]
+  },
+  {
+    title: "🏥 Fome e saúde",
+    text: "Postos de saúde relatam aumento de fraqueza e desnutrição.",
+    choices: [
+      { text: "Criar cestas emergenciais", effect: { food: 18, money: -16, env: 0, people: 18 }, feedback: "A ajuda foi imediata e salvou famílias." },
+      { text: "Investir em educação alimentar", effect: { food: 8, money: -6, env: 8, people: 8 }, feedback: "Não resolveu tudo, mas ajudou a longo prazo." },
+      { text: "Aguardar próximo relatório", effect: { food: -20, money: 5, env: 0, people: -20 }, feedback: "Enquanto você esperou, a situação piorou." }
+    ]
+  },
+  {
+    title: "🔥 Queimada ilegal",
+    text: "Produtores queimaram área verde para abrir espaço de plantio.",
+    choices: [
+      { text: "Punir e recuperar área", effect: { food: -5, money: -10, env: 22, people: 10 }, feedback: "A produção caiu um pouco, mas a cidade defendeu o meio ambiente." },
+      { text: "Fazer vista grossa", effect: { food: 20, money: 10, env: -30, people: -12 }, feedback: "A colheita aumentou, mas o ar ficou pesado e o solo sofreu." },
+      { text: "Negociar recuperação parcial", effect: { food: 8, money: 0, env: 8, people: 5 }, feedback: "Foi uma solução mediana, mas evitou conflito maior." }
     ]
   }
 ];
 
 function showScreen(id) {
-  document.querySelectorAll(".screen").forEach(screen => {
-    screen.classList.remove("active");
-  });
-
+  document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
 function startGame() {
   year = 1;
+  usedEvents = [];
+  history = [];
+
   stats = {
     food: 70,
     money: 60,
     env: 70,
     people: 60
   };
-  decisions = [];
 
   showScreen("game");
   updateBars();
+  updateHistory();
   loadEvent();
 }
 
@@ -217,12 +185,34 @@ function updateBar(name, value) {
 
   document.getElementById(name + "Bar").style.width = value + "%";
   document.getElementById(name + "Text").textContent = value + "%";
+
+  const bar = document.getElementById(name + "Bar");
+
+  if (value <= 25) {
+    bar.style.background = "linear-gradient(90deg, #ff3333, #ff8800)";
+  } else if (value <= 50) {
+    bar.style.background = "linear-gradient(90deg, #ffcc29, #ff8800)";
+  } else {
+    bar.style.background = "linear-gradient(90deg, #7ed957, #ffcc29)";
+  }
 }
 
 function loadEvent() {
   document.getElementById("feedback").textContent = "";
 
-  const event = events[Math.floor(Math.random() * events.length)];
+  if (usedEvents.length === events.length) {
+    usedEvents = [];
+  }
+
+  let index;
+
+  do {
+    index = Math.floor(Math.random() * events.length);
+  } while (usedEvents.includes(index));
+
+  usedEvents.push(index);
+
+  const event = events[index];
 
   document.getElementById("cardTitle").textContent = event.title;
   document.getElementById("cardText").textContent = event.text;
@@ -233,12 +223,12 @@ function loadEvent() {
   event.choices.forEach(choice => {
     const button = document.createElement("button");
     button.textContent = choice.text;
-    button.onclick = () => makeChoice(choice);
+    button.onclick = () => makeChoice(choice, event.title);
     choicesDiv.appendChild(button);
   });
 }
 
-function makeChoice(choice) {
+function makeChoice(choice, eventTitle) {
   stats.food += choice.effect.food;
   stats.money += choice.effect.money;
   stats.env += choice.effect.env;
@@ -246,24 +236,49 @@ function makeChoice(choice) {
 
   limitStats();
 
-  decisions.push(choice);
+  history.unshift(`${eventTitle}: ${choice.text}`);
+
+  if (history.length > 4) {
+    history.pop();
+  }
 
   document.getElementById("feedback").textContent = choice.feedback;
 
+  const card = document.querySelector(".card");
+  card.classList.add("danger");
+  setTimeout(() => card.classList.remove("danger"), 500);
+
   updateBars();
+  updateHistory();
 
   if (checkGameOver()) {
-    setTimeout(showFinal, 1200);
+    setTimeout(showFinal, 1500);
     return;
   }
 
   year++;
 
-  if (year > 5) {
-    setTimeout(showFinal, 1200);
+  if (year > 10) {
+    setTimeout(showFinal, 1500);
   } else {
-    setTimeout(loadEvent, 1600);
+    setTimeout(loadEvent, 1800);
   }
+}
+
+function updateHistory() {
+  const list = document.getElementById("historyList");
+
+  if (!list) {
+    return;
+  }
+
+  list.innerHTML = "";
+
+  history.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    list.appendChild(li);
+  });
 }
 
 function limitStats() {
@@ -284,38 +299,48 @@ function showFinal() {
   let text = "";
   let future = "";
 
+  const average = Math.round((stats.food + stats.money + stats.env + stats.people) / 4);
+
   if (stats.food <= 0) {
     title = "☠️ Colapso Alimentar";
-    text = "A cidade ficou sem comida. A fome se espalhou e a população entrou em desespero.";
-    future = "Se esse modelo fosse repetido por 5 anos, a desigualdade aumentaria e milhares de pessoas ficariam sem acesso a alimentos básicos.";
+    text = "A cidade ficou sem comida. Mercados esvaziaram, famílias entraram em desespero e a fome venceu.";
+    future = "Em 5 anos, esse modelo causaria fome extrema, aumento da desigualdade e dependência de ajuda externa.";
   } else if (stats.money <= 0) {
     title = "💸 Falência da Cidade";
-    text = "A cidade não conseguiu manter seus programas e entrou em crise econômica.";
-    future = "Mesmo com boas intenções, políticas sem planejamento financeiro não se sustentariam no longo prazo.";
+    text = "Você tentou resolver tudo, mas o orçamento acabou. Sem dinheiro, os programas sociais pararam.";
+    future = "Boas intenções precisam de planejamento. Sem economia equilibrada, políticas públicas deixam de funcionar.";
   } else if (stats.env <= 0) {
     title = "🔥 Colapso Ambiental";
-    text = "A produção cresceu no começo, mas destruiu os recursos naturais.";
-    future = "Em 5 anos, o solo ficaria degradado, a água acabaria e a produção de alimentos cairia drasticamente.";
+    text = "A cidade produziu muito no começo, mas destruiu solo, água e florestas. O futuro secou.";
+    future = "Em 5 anos, a produção cairia drasticamente, mostrando que combater a fome também depende da natureza.";
   } else if (stats.people <= 0) {
     title = "⚠️ Revolta Popular";
-    text = "A população perdeu a confiança na liderança e protestos tomaram a cidade.";
-    future = "A fome não é apenas falta de comida. Ela também gera instabilidade social, revolta e desigualdade.";
-  } else if (stats.food >= 75 && stats.env >= 65 && stats.people >= 65) {
+    text = "A população perdeu a confiança. Protestos tomaram as ruas e sua liderança caiu.";
+    future = "A fome também é um problema social. Quando a distribuição é injusta, a revolta cresce.";
+  } else if (stats.food >= 80 && stats.env >= 70 && stats.people >= 70 && stats.money >= 45) {
     title = "🏆 Guardião da Colheita";
-    text = "Você conseguiu alimentar a população sem destruir o meio ambiente.";
-    future = "Se decisões parecidas fossem aplicadas por 5 anos, a comunidade teria mais segurança alimentar, menos desperdício e produção sustentável.";
-  } else if (stats.money >= 75 && stats.food < 60) {
+    text = "Você alimentou a população, protegeu o meio ambiente e manteve a cidade de pé.";
+    future = "Se todos seguissem esse caminho por 5 anos, haveria menos fome, menos desperdício e mais sustentabilidade.";
+  } else if (stats.money >= 80 && stats.food < 60) {
     title = "🏙️ Cidade Rica, Povo com Fome";
-    text = "A economia cresceu, mas a comida não chegou para todos.";
-    future = "Esse cenário mostra que crescimento econômico sem distribuição justa pode manter a fome e aumentar a desigualdade.";
-  } else if (stats.env < 45) {
+    text = "A economia cresceu, mas a comida não chegou para quem precisava.";
+    future = "Esse final mostra que crescimento econômico sem distribuição justa não acaba com a fome.";
+  } else if (stats.food >= 85 && stats.env < 45) {
     title = "🌵 O Preço da Produção";
-    text = "A cidade produziu alimentos, mas sacrificou o futuro ambiental.";
-    future = "No longo prazo, a falta de sustentabilidade prejudicaria a água, o solo e a produção agrícola.";
+    text = "Você produziu muita comida, mas sacrificou a natureza no processo.";
+    future = "Em poucos anos, o solo perderia força, a água ficaria escassa e a fome voltaria ainda pior.";
+  } else if (stats.people >= 85 && stats.money < 40) {
+    title = "❤️ Líder Popular Endividado";
+    text = "O povo te ama, mas a cidade ficou financeiramente frágil.";
+    future = "Ajudar a população é essencial, mas políticas públicas precisam continuar possíveis no futuro.";
+  } else if (average >= 70) {
+    title = "🌾 Futuro Sustentável";
+    text = "Você não foi perfeito, mas conseguiu equilíbrio entre comida, economia, população e meio ambiente.";
+    future = "Esse é o caminho mais realista: decisões equilibradas, menos desperdício e cuidado com os mais vulneráveis.";
   } else {
-    title = "🌾 Caminho Equilibrado";
-    text = "A cidade sobreviveu aos 5 anos, mas ainda enfrenta desafios.";
-    future = "Suas escolhas mostram que combater a fome exige equilíbrio entre produção, distribuição, economia e meio ambiente.";
+    title = "🌫️ Sobrevivência Difícil";
+    text = "A cidade chegou ao fim dos 10 anos, mas com muitos problemas acumulados.";
+    future = "O resultado mostra que pequenas decisões ruins, repetidas por anos, podem manter a fome e a desigualdade.";
   }
 
   document.getElementById("finalTitle").textContent = title;
