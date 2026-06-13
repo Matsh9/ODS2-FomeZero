@@ -1,6 +1,14 @@
 let unlockedEndings =
     JSON.parse(localStorage.getItem("district2_endings")) || [];
 
+const curiosidades = [
+    "🌍 Cerca de 1/3 dos alimentos produzidos no mundo são desperdiçados.",
+    "🍎 Reduzir o desperdício é uma das formas mais eficazes de combater a fome.",
+    "💧 Produzir alimentos exige grandes quantidades de água e recursos naturais.",
+    "👨‍🌾 A agricultura familiar produz boa parte dos alimentos consumidos pela população.",
+    "🥗 Combater a fome envolve produção, distribuição e consumo consciente."
+];
+
 let year = 1;
 let usedEvents = [];
 
@@ -709,6 +717,30 @@ function showFinal() {
 
     document.getElementById("scoreText").textContent =
         `Pontuação final: ${score} pontos`;
+    const pessoasAlimentadas = Math.round(score * 12);
+    const desperdicioEvitado = Math.round(stats.env * 0.35);
+    const recursosPreservados = stats.env;
+    const aprovacaoMedia = stats.people;
+
+    document.getElementById("finalStats").innerHTML = `
+    <h3>📊 Impacto das suas decisões</h3>
+
+    <p>🍽️ Pessoas alimentadas: ${pessoasAlimentadas}</p>
+
+    <p>🍞 Desperdício evitado: ${desperdicioEvitado} toneladas</p>
+
+    <p>🌱 Recursos preservados: ${recursosPreservados}%</p>
+
+    <p>😊 Aprovação popular: ${aprovacaoMedia}%</p>
+    `;
+    const curiosidade =
+        curiosidades[Math.floor(Math.random() * curiosidades.length)];
+
+    document.getElementById("didYouKnow").innerHTML = `
+    <h3>💡 Você sabia?</h3>
+
+    <p>${curiosidade}</p>
+    `;
 
     document.getElementById("endingProgress").textContent =
         `Finais descobertos: ${validUnlocked.length}/8`;

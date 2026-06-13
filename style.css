@@ -416,3 +416,33 @@ header {
     font-size: 15px;
     margin: 8px 0;
 }
+.final-stats {
+    margin: 20px 0;
+    background: #101820;
+    border-left: 4px solid #4dabf7;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: left;
+}
+
+.final-stats h3 {
+    color: #4dabf7;
+    margin-top: 0;
+}
+
+.final-stats p {
+    margin: 8px 0;
+}
+.did-you-know {
+    margin: 20px 0;
+    background: rgba(255, 204, 41, 0.12);
+    border-left: 4px solid #ffcc29;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: left;
+}
+
+.did-you-know h3 {
+    color: #ffcc29;
+    margin-top: 0;
+}
