@@ -572,62 +572,146 @@ function showFinal() {
     let text = "";
     let future = "";
 
-    const average = Math.round((stats.food + stats.money + stats.env + stats.people) / 4);
+    const average = Math.round(
+        (stats.food + stats.money + stats.env + stats.people) / 4
+    );
+
+    const isGameOver = checkGameOver();
 
     if (stats.food <= 0) {
         title = "☠️ Colapso Alimentar";
         text = "A cidade ficou sem comida. Mercados esvaziaram, famílias entraram em desespero e a fome venceu.";
-        future = "Em 5 anos, esse modelo causaria fome extrema, aumento da desigualdade e dependência de ajuda externa.";
+        future = "Esse não é um final desbloqueável. Ele mostra que sem segurança alimentar nenhuma comunidade consegue se manter.";
     } else if (stats.money <= 0) {
         title = "💸 Falência da Cidade";
         text = "Você tentou resolver tudo, mas o orçamento acabou. Sem dinheiro, os programas sociais pararam.";
-        future = "Boas intenções precisam de planejamento. Sem economia equilibrada, políticas públicas deixam de funcionar.";
+        future = "Esse não é um final desbloqueável. Boas intenções precisam de planejamento para continuar funcionando.";
     } else if (stats.env <= 0) {
         title = "🔥 Colapso Ambiental";
         text = "A cidade produziu muito no começo, mas destruiu solo, água e florestas. O futuro secou.";
-        future = "Em 5 anos, a produção cairia drasticamente, mostrando que combater a fome também depende da natureza.";
+        future = "Esse não é um final desbloqueável. Sem meio ambiente preservado, a produção de alimentos entra em risco.";
     } else if (stats.people <= 0) {
         title = "⚠️ Revolta Popular";
         text = "A população perdeu a confiança. Protestos tomaram as ruas e sua liderança caiu.";
-        future = "A fome também é um problema social. Quando a distribuição é injusta, a revolta cresce.";
-    } else if (stats.food >= 80 && stats.env >= 70 && stats.people >= 70 && stats.money >= 45) {
+        future = "Esse não é um final desbloqueável. A fome também gera instabilidade social.";
+    }
+
+    else if (
+        stats.food >= 80 &&
+        stats.env >= 70 &&
+        stats.people >= 70 &&
+        stats.money >= 45
+    ) {
         title = "🏆 Guardião da Colheita";
         text = "Você alimentou a população, protegeu o meio ambiente e manteve a cidade de pé.";
         future = "Se todos seguissem esse caminho por 5 anos, haveria menos fome, menos desperdício e mais sustentabilidade.";
-    } else if (stats.money >= 80 && stats.food < 60) {
-        title = "🏙️ Cidade Rica, Povo com Fome";
-        text = "A economia cresceu, mas a comida não chegou para quem precisava.";
-        future = "Esse final mostra que crescimento econômico sem distribuição justa não acaba com a fome.";
-    } else if (stats.food >= 85 && stats.env < 45) {
-        title = "🌵 O Preço da Produção";
-        text = "Você produziu muita comida, mas sacrificou a natureza no processo.";
-        future = "Em poucos anos, o solo perderia força, a água ficaria escassa e a fome voltaria ainda pior.";
-    } else if (stats.people >= 85 && stats.money < 40) {
-        title = "❤️ Líder Popular Endividado";
-        text = "O povo te ama, mas a cidade ficou financeiramente frágil.";
-        future = "Ajudar a população é essencial, mas políticas públicas precisam continuar possíveis no futuro.";
-    } else if (average >= 70) {
-        title = "🌾 Futuro Sustentável";
-        text = "Você não foi perfeito, mas conseguiu equilíbrio entre comida, economia, população e meio ambiente.";
-        future = "Esse é o caminho mais realista: decisões equilibradas, menos desperdício e cuidado com os mais vulneráveis.";
-    } else {
-        title = "🌫️ Sobrevivência Difícil";
-        text = "A cidade chegou ao fim dos 10 anos, mas com muitos problemas acumulados.";
-        future = "O resultado mostra que pequenas decisões ruins, repetidas por anos, podem manter a fome e a desigualdade.";
     }
 
-    if (!checkGameOver()) {
+    else if (
+        stats.food >= 70 &&
+        stats.env >= 70 &&
+        stats.money >= 55 &&
+        stats.people >= 55
+    ) {
+        title = "🌾 Futuro Sustentável";
+        text = "Você encontrou um caminho realista entre produção, preservação e bem-estar social.";
+        future = "Esse cenário mostra que combater a fome exige equilíbrio entre agricultura sustentável, economia e distribuição justa.";
+    }
+
+    else if (
+        stats.people >= 85 &&
+        stats.food >= 65
+    ) {
+        title = "❤️ Líder Popular Endividado";
+        text = "Você priorizou as pessoas acima de tudo. A população confia em você, mas a cidade ficou financeiramente pressionada.";
+        future = "Ajudar a população é essencial, mas políticas públicas precisam ser planejadas para continuar existindo no futuro.";
+    }
+
+    else if (
+        stats.money >= 80 &&
+        stats.food >= 60 &&
+        stats.env >= 40
+    ) {
+        title = "💰 Mestre da Economia";
+        text = "Você manteve a cidade financeiramente forte e evitou o colapso alimentar.";
+        future = "Esse cenário mostra que uma economia organizada ajuda no combate à fome, mas não pode ignorar desigualdades.";
+    }
+
+    else if (
+        stats.env >= 85 &&
+        stats.food >= 55
+    ) {
+        title = "🌳 Protetor da Natureza";
+        text = "Você protegeu os recursos naturais e garantiu que a cidade ainda tenha futuro para produzir alimentos.";
+        future = "Esse caminho mostra que preservar água, solo e florestas também é uma forma de combater a fome.";
+    }
+
+    else if (
+        stats.food >= 55 &&
+        stats.money >= 55 &&
+        stats.env >= 55 &&
+        stats.people >= 55 &&
+        stats.food <= 75 &&
+        stats.money <= 75 &&
+        stats.env <= 75 &&
+        stats.people <= 75
+    ) {
+        title = "⚖️ O Equilibrista";
+        text = "Você não foi extremo em nenhuma área. Manteve tudo funcionando sem deixar nenhum indicador dominar.";
+        future = "Esse é um dos finais mais difíceis: mostra que equilíbrio constante pode ser mais importante do que grandes vitórias isoladas.";
+    }
+
+    else if (
+        stats.money >= 75 &&
+        stats.food < 60
+    ) {
+        title = "🏙️ Cidade Rica, Povo com Fome";
+        text = "A economia cresceu, mas a comida não chegou para quem mais precisava.";
+        future = "Esse final mostra que crescimento econômico sem distribuição justa não acaba com a fome.";
+    }
+
+    else if (
+        stats.food >= 75 &&
+        stats.env < 50
+    ) {
+        title = "🌵 O Preço da Produção";
+        text = "Você produziu bastante comida, mas sacrificou a natureza no processo.";
+        future = "Em poucos anos, o solo perderia força, a água ficaria escassa e a fome poderia voltar ainda pior.";
+    }
+
+    else if (average >= 65) {
+        title = "🌾 Futuro Sustentável";
+        text = "Você sobreviveu aos 10 anos com bons resultados gerais, mesmo sem atingir um cenário perfeito.";
+        future = "O resultado mostra que decisões equilibradas podem reduzir a fome e preservar parte dos recursos.";
+    }
+
+    else {
+        title = "⚖️ O Equilibrista";
+        text = "A cidade chegou ao fim dos 10 anos com dificuldades, mas sem colapsar.";
+        future = "Esse resultado mostra que pequenas escolhas, mesmo imperfeitas, ainda podem manter uma comunidade viva.";
+    }
+
+    if (!isGameOver) {
         unlockEnding(title);
     }
 
+    const validUnlocked = allEndings.filter(ending =>
+        unlockedEndings.includes(ending)
+    );
+
     const score = calculateScore();
+
     document.getElementById("finalTitle").textContent = title;
     document.getElementById("finalText").textContent = text;
     document.getElementById("futureText").textContent = future;
-    document.getElementById("charactersFinal").innerHTML = gerarDestinoFinalPersonagens();
-    document.getElementById("scoreText").textContent = `Pontuação final: ${score} pontos`;
+    document.getElementById("charactersFinal").innerHTML =
+        gerarDestinoFinalPersonagens();
+
+    document.getElementById("scoreText").textContent =
+        `Pontuação final: ${score} pontos`;
+
     document.getElementById("endingProgress").textContent =
-        `Finais descobertos: ${unlockedEndings.length}/8`;
+        `Finais descobertos: ${validUnlocked.length}/8`;
 }
 const allEndings = [
     "🏆 Guardião da Colheita",
