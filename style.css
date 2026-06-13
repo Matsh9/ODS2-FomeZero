@@ -199,3 +199,15 @@ header {
   50% { transform: scale(1.03); }
   100% { transform: scale(1); }
 }
+
+#continueBtn {
+    display: none;
+    margin-top: 20px;
+    width: 100%;
+    background: #7ed957;
+    color: #101820;
+}
+
+#continueBtn:hover {
+    background: #94ec72;
+}
