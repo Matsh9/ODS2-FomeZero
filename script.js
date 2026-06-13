@@ -152,8 +152,18 @@ const events = [
 ];
 
 function showScreen(id) {
-    document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+    document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+    });
+
+    const selectedScreen = document.getElementById(id);
+
+    if (!selectedScreen) {
+        console.error(`Tela com id "${id}" não encontrada no HTML.`);
+        return;
+    }
+
+    selectedScreen.classList.add("active");
 }
 
 function startGame() {
