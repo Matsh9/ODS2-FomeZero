@@ -247,3 +247,83 @@ header {
     color: #7ed957;
     margin-top: 25px;
 }
+
+@media (max-width: 600px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .screen {
+        padding: 15px;
+        min-height: 100vh;
+        align-items: flex-start;
+    }
+
+    .box {
+        width: 100%;
+        padding: 22px;
+        margin-top: 20px;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p, li {
+        font-size: 16px;
+    }
+
+    .game-area {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .status,
+    .card {
+        width: 100%;
+        padding: 18px;
+    }
+
+    .bar-box {
+        margin-bottom: 16px;
+    }
+
+    #choices button,
+    #continueBtn,
+    button {
+        width: 100%;
+        margin: 8px 0;
+        font-size: 15px;
+        padding: 13px;
+    }
+
+    header h1 {
+        font-size: 32px;
+    }
+
+    header {
+        margin-bottom: 10px;
+    }
+
+    .history {
+        max-height: 140px;
+        overflow-y: auto;
+    }
+
+    .tutorial-list {
+        padding-left: 10px;
+    }
+
+    .warning {
+        font-size: 15px;
+    }
+}
