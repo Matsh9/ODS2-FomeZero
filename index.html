@@ -1,179 +1,186 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Distrito 2 - O Preço da Fome</title>
 
-        <link rel="icon"
-            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌾</text></svg>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distrito 2 - O Preço da Fome</title>
 
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌾</text></svg>">
 
-        <section id="home" class="screen active hero">
-            <div class="box">
-                <h1>Distrito 2</h1>
-                <h2>O Preço da Fome</h2>
-                <p>Você tem 10 anos para alimentar uma cidade sem destruir o
-                    futuro.</p>
-                <button onclick="showScreen('tutorial')">Começar</button>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section id="home" class="screen active hero">
+        <div class="box">
+            <h1>Distrito 2</h1>
+            <h2>O Preço da Fome</h2>
+            <p>Você tem 10 anos para alimentar uma cidade sem destruir o
+                futuro.</p>
+            <button onclick="showScreen('tutorial')">Começar</button>
+        </div>
+    </section>
+
+    <section id="tutorial" class="screen">
+        <div class="box">
+            <h2>Como jogar</h2>
+
+            <p>
+                Você é o administrador de uma comunidade que enfrenta
+                desafios
+                relacionados à fome, à distribuição de alimentos e à
+                sustentabilidade.
+            </p>
+
+            <p>
+                Durante <strong>10 anos</strong>, diferentes situações
+                aparecerão
+                e você deverá tomar decisões importantes.
+            </p>
+
+            <div class="warning">
+                ⚠️ <strong>Atenção:</strong> Em cada evento você poderá
+                escolher
+                apenas <strong>UMA</strong> opção.
+                <br><br>
+                Após fazer sua escolha, clique em
+                <strong>"Continuar"</strong> para confirmar.
+                <br><br>
+                <strong>Suas decisões são definitivas e não podem ser
+                    desfeitas.</strong>
             </div>
-        </section>
 
-        <section id="tutorial" class="screen">
-            <div class="box">
-                <h2>Como jogar</h2>
+            <h3>Suas escolhas afetam:</h3>
 
-                <p>
-                    Você é o administrador de uma comunidade que enfrenta
-                    desafios
-                    relacionados à fome, à distribuição de alimentos e à
-                    sustentabilidade.
-                </p>
+            <ul class="tutorial-list">
+                <li>📦 <strong>Comida:</strong> quantidade de alimentos
+                    disponível para a população.</li>
+                <li>💰 <strong>Economia:</strong> recursos financeiros da
+                    cidade.</li>
+                <li>🌱 <strong>Meio Ambiente:</strong> preservação dos
+                    recursos naturais.</li>
+                <li>😊 <strong>Aprovação Popular:</strong> confiança e apoio
+                    da população.</li>
+            </ul>
 
-                <p>
-                    Durante <strong>10 anos</strong>, diferentes situações
-                    aparecerão
-                    e você deverá tomar decisões importantes.
-                </p>
+            <div class="warning">
+                🚨 Se qualquer indicador chegar a <strong>0%</strong>,
+                sua cidade entrará em colapso e o jogo terminará.
+            </div>
 
-                <div class="warning">
-                    ⚠️ <strong>Atenção:</strong> Em cada evento você poderá
+            <p>
+                Sobreviva aos 10 anos e descubra qual dos
+                <strong>8 finais possíveis</strong> você conquistará.
+            </p>
+
+            <p>
+                💡 <em>
+                    Não existe decisão perfeita. Às vezes você precisará
                     escolher
-                    apenas <strong>UMA</strong> opção.
-                    <br><br>
-                    Após fazer sua escolha, clique em
-                    <strong>"Continuar"</strong> para confirmar.
-                    <br><br>
-                    <strong>Suas decisões são definitivas e não podem ser
-                        desfeitas.</strong>
+                    entre resolver problemas imediatos ou proteger o futuro
+                    da comunidade.
+                </em>
+            </p>
+
+            <button onclick="startGame()">Estou pronto para decidir</button>
+        </div>
+    </section>
+
+    <section id="game" class="screen">
+        <header>
+            <h1>Distrito 2</h1>
+            <p>Ano <span id="year">1</span> de 10</p>
+        </header>
+
+        <main class="game-area">
+            <div class="status">
+                <div class="bar-box">
+                    <span>📦 Comida</span>
+                    <div class="bar">
+                        <div id="foodBar"></div>
+                    </div>
+                    <strong id="foodText">70%</strong>
                 </div>
 
-                <h3>Suas escolhas afetam:</h3>
-
-                <ul class="tutorial-list">
-                    <li>📦 <strong>Comida:</strong> quantidade de alimentos
-                        disponível para a população.</li>
-                    <li>💰 <strong>Economia:</strong> recursos financeiros da
-                        cidade.</li>
-                    <li>🌱 <strong>Meio Ambiente:</strong> preservação dos
-                        recursos naturais.</li>
-                    <li>😊 <strong>Aprovação Popular:</strong> confiança e apoio
-                        da população.</li>
-                </ul>
-
-                <div class="warning">
-                    🚨 Se qualquer indicador chegar a <strong>0%</strong>,
-                    sua cidade entrará em colapso e o jogo terminará.
+                <div class="bar-box">
+                    <span>💰 Economia</span>
+                    <div class="bar">
+                        <div id="moneyBar"></div>
+                    </div>
+                    <strong id="moneyText">60%</strong>
                 </div>
 
-                <p>
-                    Sobreviva aos 10 anos e descubra qual dos
-                    <strong>8 finais possíveis</strong> você conquistará.
-                </p>
+                <div class="bar-box">
+                    <span>🌱 Meio Ambiente</span>
+                    <div class="bar">
+                        <div id="envBar"></div>
+                    </div>
+                    <strong id="envText">70%</strong>
+                </div>
 
-                <p>
-                    💡 <em>
-                        Não existe decisão perfeita. Às vezes você precisará
-                        escolher
-                        entre resolver problemas imediatos ou proteger o futuro
-                        da comunidade.
-                    </em>
-                </p>
-
-                <button onclick="startGame()">Estou pronto para decidir</button>
+                <div class="bar-box">
+                    <span>😊 Aprovação</span>
+                    <div class="bar">
+                        <div id="peopleBar"></div>
+                    </div>
+                    <strong id="peopleText">60%</strong>
+                </div>
             </div>
-        </section>
 
-        <section id="game" class="screen">
-            <header>
-                <h1>Distrito 2</h1>
-                <p>Ano <span id="year">1</span> de 10</p>
-            </header>
+            <div class="card">
+                <h2 id="cardTitle">Evento</h2>
+                <p id="cardText">Texto do evento</p>
 
-            <main class="game-area">
-                <div class="status">
-                    <div class="bar-box">
-                        <span>📦 Comida</span>
-                        <div class="bar">
-                            <div id="foodBar"></div>
-                        </div>
-                        <strong id="foodText">70%</strong>
-                    </div>
+                <div id="choices"></div>
 
-                    <div class="bar-box">
-                        <span>💰 Economia</span>
-                        <div class="bar">
-                            <div id="moneyBar"></div>
-                        </div>
-                        <strong id="moneyText">60%</strong>
-                    </div>
+                <p id="feedback"></p>
 
-                    <div class="bar-box">
-                        <span>🌱 Meio Ambiente</span>
-                        <div class="bar">
-                            <div id="envBar"></div>
-                        </div>
-                        <strong id="envText">70%</strong>
-                    </div>
+                <div id="newsFeed" class="news-feed" style="display: none;">
+                    <h3>📰 Últimas Notícias</h3>
 
-                    <div class="bar-box">
-                        <span>😊 Aprovação</span>
-                        <div class="bar">
-                            <div id="peopleBar"></div>
-                        </div>
-                        <strong id="peopleText">60%</strong>
+                    <p id="newsText"></p>
+
+                    <div class="comments">
+                        <h4>💬 Opinião da população</h4>
+
+                        <ul id="commentsList"></ul>
                     </div>
                 </div>
-
-                <div class="card">
-                    <h2 id="cardTitle">Evento</h2>
-                    <p id="cardText">Texto do evento</p>
-
-                    <div id="choices"></div>
-
-                    <p id="feedback"></p>
-
-                    <div id="newsFeed" class="news-feed" style="display: none;">
-                        <h3>📰 Últimas Notícias</h3>
-
-                        <p id="newsText"></p>
-
-                        <div class="comments">
-                            <h4>💬 Opinião da população</h4>
-
-                            <ul id="commentsList"></ul>
-                        </div>
-                    </div>
-
-                    <button id="continueBtn" style="display: none;">
-                        Continuar →
-                    </button>
-                    <div class="history">
-                        <h3>Últimas decisões</h3>
-                        <ul id="historyList"></ul>
-                    </div>
+                <div id="characterEvent" class="character-event" style="display: none;">
+                    <h3>👥 Histórias da cidade</h3>
+                    <p id="characterText"></p>
                 </div>
-            </main>
-        </section>
 
-        <section id="final" class="screen">
-            <div class="box final-box">
-                <h2 id="finalTitle"></h2>
-                <p id="finalText"></p>
-
-                <h3>Simulação: e se todos fizessem isso por 5 anos?</h3>
-                <p id="futureText"></p>
-
-                <h3 id="scoreText"></h3>
-                <h3 id="endingProgress"></h3>
-
-                <button onclick="restartGame()">Jogar novamente</button>
+                <button id="continueBtn" style="display: none;">
+                    Continuar →
+                </button>
+                <div class="history">
+                    <h3>Últimas decisões</h3>
+                    <ul id="historyList"></ul>
+                </div>
             </div>
-        </section>
+        </main>
+    </section>
 
-        <script src="script.js"></script>
-    </body>
+    <section id="final" class="screen">
+        <div class="box final-box">
+            <h2 id="finalTitle"></h2>
+            <p id="finalText"></p>
+
+            <h3>Simulação: e se todos fizessem isso por 5 anos?</h3>
+            <p id="futureText"></p>
+            <div id="charactersFinal" class="characters-final"></div>
+            <h3 id="scoreText"></h3>
+            <h3 id="endingProgress"></h3>
+
+            <button onclick="restartGame()">Jogar novamente</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
 </html>

@@ -151,6 +151,13 @@ const events = [
     }
 ];
 
+let characters = {
+    ana: 0,
+    maria: 0,
+    lucas: 0,
+    carlos: 0
+};
+
 function showScreen(id) {
     document.querySelectorAll(".screen").forEach(screen => {
         screen.classList.remove("active");
@@ -170,6 +177,12 @@ function startGame() {
     year = 1;
     usedEvents = [];
     history = [];
+    characters = {
+        ana: 0,
+        maria: 0,
+        lucas: 0,
+        carlos: 0
+    };
 
     stats = {
         food: 70,
@@ -215,6 +228,7 @@ function loadEvent() {
 
     const newsFeed = document.getElementById("newsFeed");
     const commentsList = document.getElementById("commentsList");
+    const characterEvent = document.getElementById("characterEvent");
 
     if (newsFeed) {
         newsFeed.style.display = "none";
@@ -222,6 +236,10 @@ function loadEvent() {
 
     if (commentsList) {
         commentsList.innerHTML = "";
+    }
+
+    if (characterEvent) {
+        characterEvent.style.display = "none";
     }
 
     if (usedEvents.length === events.length) {
@@ -277,6 +295,8 @@ function makeChoice(choice, eventTitle) {
             commentsList.appendChild(li);
         });
     }
+    atualizarPersonagens(eventTitle, choice);
+    mostrarHistoriaPersonagem(eventTitle, choice);
 
     history.unshift(`${eventTitle}: ${choice.text}`);
 
@@ -318,6 +338,133 @@ function makeChoice(choice, eventTitle) {
         }
     };
 }
+function atualizarPersonagens(eventTitle, choice) {
+    if (eventTitle.includes("Merenda") || eventTitle.includes("escolar")) {
+        characters.ana += choice.effect.food > 0 ? 2 : -2;
+        characters.ana += choice.effect.people > 0 ? 1 : -1;
+    }
+
+    if (eventTitle.includes("Desperdício") || eventTitle.includes("Doação") || eventTitle.includes("Fome")) {
+        characters.maria += choice.effect.food > 0 ? 2 : -2;
+        characters.maria += choice.effect.people > 0 ? 1 : -1;
+    }
+
+    if (eventTitle.includes("Agricultura") || eventTitle.includes("Jovens") || eventTitle.includes("Praga") || eventTitle.includes("Queimada")) {
+        characters.lucas += choice.effect.env > 0 ? 2 : -2;
+        characters.lucas += choice.effect.food > 0 ? 1 : -1;
+    }
+
+    if (eventTitle.includes("Feira") || eventTitle.includes("mercados") || eventTitle.includes("econômica")) {
+        characters.carlos += choice.effect.money > 0 ? 2 : -1;
+        characters.carlos += choice.effect.food > 0 ? 1 : -1;
+    }
+}
+
+function gerarDestinoPersonagem(nome, valor, bom, medio, ruim) {
+    if (valor >= 3) {
+        return `<p><strong>${nome}</strong><br>${bom}</p>`;
+    }
+
+    if (valor <= -3) {
+        return `<p><strong>${nome}</strong><br>${ruim}</p>`;
+    }
+
+    return `<p><strong>${nome}</strong><br>${medio}</p>`;
+}
+
+function gerarDestinoFinalPersonagens() {
+    return `
+        <h3>O destino das pessoas da cidade</h3>
+
+        ${gerarDestinoPersonagem(
+        "👧 Ana",
+        characters.ana,
+        "Conseguiu estudar melhor porque teve acesso à alimentação adequada na escola.",
+        "Continuou estudando, mas ainda enfrentou períodos de insegurança alimentar.",
+        "Teve dificuldades na escola por causa da fome e da redução da merenda."
+    )}
+
+        ${gerarDestinoPersonagem(
+        "👵 Dona Maria",
+        characters.maria,
+        "Recebeu apoio alimentar e conseguiu viver com mais dignidade.",
+        "Sobreviveu com ajuda da comunidade, mas ainda enfrentou dificuldades.",
+        "Passou por insegurança alimentar e dependeu de vizinhos para conseguir comida."
+    )}
+
+        ${gerarDestinoPersonagem(
+        "👨‍🌾 Lucas",
+        characters.lucas,
+        "Viu futuro na agricultura sustentável e continuou trabalhando no campo.",
+        "Continuou no campo, mas com dúvidas sobre o futuro da produção.",
+        "Abandonou o campo por falta de apoio e pelas dificuldades ambientais."
+    )}
+
+        ${gerarDestinoPersonagem(
+        "🏪 Carlos",
+        characters.carlos,
+        "Manteve seu mercado aberto e ajudou a abastecer a comunidade.",
+        "Conseguiu manter o comércio, mas sofreu com a instabilidade da cidade.",
+        "Teve dificuldades para manter o mercado por causa da crise e da má distribuição."
+    )}
+    `;
+}
+
+function mostrarHistoriaPersonagem(eventTitle, choice) {
+    const characterEvent = document.getElementById("characterEvent");
+    const characterText = document.getElementById("characterText");
+
+    if (!characterEvent || !characterText) {
+        return;
+    }
+
+    characterEvent.style.display = "block";
+
+    if (eventTitle.includes("Merenda")) {
+        if (choice.effect.food > 0 && choice.effect.people > 0) {
+            characterText.textContent =
+                "👧 Ana conseguiu estudar melhor porque teve acesso à merenda escolar.";
+        } else {
+            characterText.textContent =
+                "👧 Ana começou a sentir os impactos da insegurança alimentar na escola.";
+        }
+    } else if (eventTitle.includes("Agricultura") || eventTitle.includes("Jovens")) {
+        if (choice.effect.env > 0 || choice.effect.food > 10) {
+            characterText.textContent =
+                "👨‍🌾 Lucas viu uma chance de continuar no campo com mais dignidade.";
+        } else {
+            characterText.textContent =
+                "👨‍🌾 Lucas ficou desanimado e pensou em abandonar a agricultura.";
+        }
+    } else if (eventTitle.includes("Desperdício") || eventTitle.includes("Doação")) {
+        if (choice.effect.food > 0) {
+            characterText.textContent =
+                "👵 Dona Maria recebeu ajuda alimentar e conseguiu passar a semana com mais segurança.";
+        } else {
+            characterText.textContent =
+                "👵 Dona Maria continuou dependendo da ajuda de vizinhos para se alimentar.";
+        }
+    } else if (eventTitle.includes("Feira") || eventTitle.includes("mercados")) {
+        if (choice.effect.money > 0 || choice.effect.food > 0) {
+            characterText.textContent =
+                "🏪 Carlos percebeu mudanças no comércio local depois da sua decisão.";
+        } else {
+            characterText.textContent =
+                "🏪 Carlos viu o movimento cair e ficou preocupado com o futuro do mercado.";
+        }
+    } else {
+        const stories = [
+            "👵 Dona Maria acompanhou a decisão com esperança, mas ainda teme pelo futuro.",
+            "👧 Ana ouviu os adultos comentando sobre a crise alimentar na escola.",
+            "👨‍🌾 Lucas percebeu que o futuro da agricultura depende das escolhas feitas hoje.",
+            "🏪 Carlos sentiu que cada decisão da cidade também afeta os pequenos comerciantes."
+        ];
+
+        characterText.textContent =
+            stories[Math.floor(Math.random() * stories.length)];
+    }
+}
+
 function gerarNoticia(eventTitle, choiceText) {
     return `${eventTitle}: governo decide "${choiceText}" e divide opiniões no Distrito 2.`;
 }
@@ -466,6 +613,7 @@ function showFinal() {
     document.getElementById("finalTitle").textContent = title;
     document.getElementById("finalText").textContent = text;
     document.getElementById("futureText").textContent = future;
+    document.getElementById("charactersFinal").innerHTML = gerarDestinoFinalPersonagens();
     document.getElementById("scoreText").textContent = `Pontuação final: ${score} pontos`;
     document.getElementById("endingProgress").textContent =
         `Finais descobertos: ${unlockedEndings.length}/8`;

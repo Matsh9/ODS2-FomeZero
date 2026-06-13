@@ -328,6 +328,7 @@ header {
         font-size: 15px;
     }
 }
+
 .news-feed {
     margin-top: 20px;
     background: #101820;
@@ -357,4 +358,41 @@ header {
 .comments li {
     margin-bottom: 8px;
     color: #ddd;
+}
+
+.character-event {
+    margin-top: 20px;
+    background: #18242e;
+    border-left: 4px solid #7ed957;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.character-event h3 {
+    margin-top: 0;
+    color: #7ed957;
+}
+
+.character-event p {
+    color: #ddd;
+}
+
+.characters-final {
+    margin-top: 25px;
+    text-align: left;
+    background: #101820;
+    padding: 18px;
+    border-radius: 12px;
+    border-left: 4px solid #7ed957;
+}
+
+.characters-final h3 {
+    color: #7ed957;
+    text-align: center;
+}
+
+.characters-final p {
+    background: #1b2a35;
+    padding: 12px;
+    border-radius: 10px;
 }
