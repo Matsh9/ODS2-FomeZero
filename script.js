@@ -576,6 +576,7 @@ function calculateScore() {
 function showFinal() {
     showScreen("final");
 
+    let endingType = "";
     let title = "";
     let text = "";
     let future = "";
@@ -587,18 +588,22 @@ function showFinal() {
     const isGameOver = checkGameOver();
 
     if (stats.food <= 0) {
+        endingType = "🟥 BAD ENDING";
         title = "☠️ Colapso Alimentar";
         text = "A cidade ficou sem comida. Mercados esvaziaram, famílias entraram em desespero e a fome venceu.";
         future = "Esse não é um final desbloqueável. Ele mostra que sem segurança alimentar nenhuma comunidade consegue se manter.";
     } else if (stats.money <= 0) {
+        endingType = "🟥 BAD ENDING";
         title = "💸 Falência da Cidade";
         text = "Você tentou resolver tudo, mas o orçamento acabou. Sem dinheiro, os programas sociais pararam.";
         future = "Esse não é um final desbloqueável. Boas intenções precisam de planejamento para continuar funcionando.";
     } else if (stats.env <= 0) {
+        endingType = "🟥 BAD ENDING";
         title = "🔥 Colapso Ambiental";
         text = "A cidade produziu muito no começo, mas destruiu solo, água e florestas. O futuro secou.";
         future = "Esse não é um final desbloqueável. Sem meio ambiente preservado, a produção de alimentos entra em risco.";
     } else if (stats.people <= 0) {
+        endingType = "🟥 BAD ENDING";
         title = "⚠️ Revolta Popular";
         text = "A população perdeu a confiança. Protestos tomaram as ruas e sua liderança caiu.";
         future = "Esse não é um final desbloqueável. A fome também gera instabilidade social.";
@@ -610,6 +615,7 @@ function showFinal() {
         stats.people >= 70 &&
         stats.money >= 45
     ) {
+        endingType = "🟩 GOOD ENDING";
         title = "🏆 Guardião da Colheita";
         text = "Você alimentou a população, protegeu o meio ambiente e manteve a cidade de pé.";
         future = "Se todos seguissem esse caminho por 5 anos, haveria menos fome, menos desperdício e mais sustentabilidade.";
@@ -621,6 +627,7 @@ function showFinal() {
         stats.money >= 55 &&
         stats.people >= 55
     ) {
+        endingType = "🟩 GOOD ENDING";
         title = "🌾 Futuro Sustentável";
         text = "Você encontrou um caminho realista entre produção, preservação e bem-estar social.";
         future = "Esse cenário mostra que combater a fome exige equilíbrio entre agricultura sustentável, economia e distribuição justa.";
@@ -630,6 +637,7 @@ function showFinal() {
         stats.people >= 85 &&
         stats.food >= 65
     ) {
+        endingType = "🟩 GOOD ENDING";
         title = "❤️ Líder Popular Endividado";
         text = "Você priorizou as pessoas acima de tudo. A população confia em você, mas a cidade ficou financeiramente pressionada.";
         future = "Ajudar a população é essencial, mas políticas públicas precisam ser planejadas para continuar existindo no futuro.";
@@ -640,6 +648,7 @@ function showFinal() {
         stats.food >= 60 &&
         stats.env >= 40
     ) {
+        endingType = "🟩 GOOD ENDING";
         title = "💰 Mestre da Economia";
         text = "Você manteve a cidade financeiramente forte e evitou o colapso alimentar.";
         future = "Esse cenário mostra que uma economia organizada ajuda no combate à fome, mas não pode ignorar desigualdades.";
@@ -649,6 +658,7 @@ function showFinal() {
         stats.env >= 85 &&
         stats.food >= 55
     ) {
+        endingType = "🟩 GOOD ENDING";
         title = "🌳 Protetor da Natureza";
         text = "Você protegeu os recursos naturais e garantiu que a cidade ainda tenha futuro para produzir alimentos.";
         future = "Esse caminho mostra que preservar água, solo e florestas também é uma forma de combater a fome.";
@@ -664,6 +674,7 @@ function showFinal() {
         stats.env <= 75 &&
         stats.people <= 75
     ) {
+        endingType = "🟨 NEUTRAL ENDING";
         title = "⚖️ O Equilibrista";
         text = "Você não foi extremo em nenhuma área. Manteve tudo funcionando sem deixar nenhum indicador dominar.";
         future = "Esse é um dos finais mais difíceis: mostra que equilíbrio constante pode ser mais importante do que grandes vitórias isoladas.";
@@ -688,12 +699,14 @@ function showFinal() {
     }
 
     else if (average >= 65) {
+        endingType = "🟨 NEUTRAL ENDING";
         title = "🌾 Futuro Sustentável";
         text = "Você sobreviveu aos 10 anos com bons resultados gerais, mesmo sem atingir um cenário perfeito.";
         future = "O resultado mostra que decisões equilibradas podem reduzir a fome e preservar parte dos recursos.";
     }
 
     else {
+        endingType = "🟨 NEUTRAL ENDING";
         title = "⚖️ O Equilibrista";
         text = "A cidade chegou ao fim dos 10 anos com dificuldades, mas sem colapsar.";
         future = "Esse resultado mostra que pequenas escolhas, mesmo imperfeitas, ainda podem manter uma comunidade viva.";
@@ -709,6 +722,7 @@ function showFinal() {
 
     const score = calculateScore();
 
+    document.getElementById("endingType").textContent = endingType;
     document.getElementById("finalTitle").textContent = title;
     document.getElementById("finalText").textContent = text;
     document.getElementById("futureText").textContent = future;
